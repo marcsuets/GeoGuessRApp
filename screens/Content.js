@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import FSection from '../components/FSection';
-import QuestionCell from '../components/QuestionCell';
+import { View, Text, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../utils/firebaseConfig'; // Asegúrate de importar tu configuración de Firebase
+import colors from '../colors';
 
 
 export default function HomeScreen({ navigation }) {
@@ -15,7 +14,7 @@ export default function HomeScreen({ navigation }) {
     // Función para obtener los datos desde Firestore
     const fetchData = async () => {
       try {
-          const querySnapshot = await getDocs(collection(db, 'Preguntes'));
+          const querySnapshot = await getDocs(collection(db, 'questions'));
           const dataFromFirestore = querySnapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(), // Agregar los datos de cada documento
@@ -25,54 +24,45 @@ export default function HomeScreen({ navigation }) {
       } catch (error) {
           console.error("Error al obtener los datos: ", error);
       }
-  };
-
-  // Cargar los datos al montar el componente
-  useEffect(() => {
-      fetchData();
-  }, []);
-
-    // Función para manejar los eventos onPress de las celdas
-    const handlePress = (id) => {
-      console.log("Han clicat al botó " + id);
-      if (id === '2') {
-        navigation.navigate("Page1");
-      } else if (id === '3') {
-        navigation.navigate("Page2");
-      }
-    };
-
-    // Renderizar cada celda
-    const renderItem = ({ item }) => (
-      <QuestionCell 
-        imageUrl={item.ImageURL}
-        title={item.Title}
-        latitude={item.GeoLocation.latitude}
-        longitude={item.GeoLocation.longitude}
-        onPress={() => handlePress(item.id)}
-      />
-    );
+  };   
 
     return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colors.main}}>
         <Header/>
-        <View style={{ flex: 7, backgroundColor: 'white' }}>
-          <Text style={{ marginTop: 100, textAlign: 'center' }}>Homes Screen</Text>
-
-          {/* FlatList para mostrar el array de celdas */}
-          <View style={{height:'50%'}}>
-            <FlatList 
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-          </View>
+        <View style={{ flex: 2, backgroundColor: colors.main }}>
+          <Text style={styles.questionText}>HOLA</Text>
+        </View>
+        <View style={{ flex: 6, backgroundColor: colors.secondary }}>
           
         </View>
+        <View style={{ flex: 3, backgroundColor: colors.main }}>
+            <View style={{flex: 2}}>
 
-        <View style={{ flex: 1, backgroundColor: 'green' }}>
-          <FSection currentSection={1} onPress={handlePress} />
+            </View>
+            <View style={{flex: 1}}>
+
+            </View>
         </View>
     </View>
     );
 }
+
+const styles = StyleSheet.create({
+	questionText: {
+		textAlign: 'center', // Centra el texto horizontalmente dentro del componente
+		color: colors.secondary,
+		fontSize: 24,
+		fontWeight: 'bold',
+		height: '80%',
+		width: '90%',
+		marginTop: '3%',
+		marginRight: '5%',
+		marginLeft: '5%',
+		padding: '5%',
+		/*borderColor: colors.secondary,
+		borderWidth: 1,*/
+		justifyContent: 'center', // Centra verticalmente
+		alignItems: 'center', // Centra horizontalmente
+		display: 'flex', // Habilita flexbox
+	  },
+});

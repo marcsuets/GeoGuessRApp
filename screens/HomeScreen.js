@@ -6,7 +6,7 @@ import backgroundImage from '../assets/background.jpg';
 import ButtonBase from '../components/buttonBase';
 
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
     return (
     <View style={{ flex: 1, backgroundColor: colors.main }}>
         <Header/>
@@ -15,7 +15,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={{flex:2}}/>
                 <View style={styles.block}>
                     <Text style={styles.text}>Welcome{'\n'}to{'\n'}GeoGuessR </Text>
-                    <ButtonBase redirectTO={'Contents'}/>                 
+                    <ButtonBase redirectTO={'Content'}/>                 
                 </View>
                 <View style={{flex:3}}/>
             </ImageBackground>

@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 
 // Configuración obtenida de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyAgbV1gP612aOLa3FLGjWB0-o-9A658XJA",
-    authDomain: "testfirebase-a0eef.firebaseapp.com",
-    projectId: "testfirebase-a0eef",
-    storageBucket: "testfirebase-a0eef.appspot.com",
-    messagingSenderId: "719556239252",
-    appId: "1:719556239252:web:10b7b5cb79b7a64a507981",
-    measurementId: "G-4MHQHL8NB0"
+    apiKey: "AIzaSyCrJ7liGYK8ms2uJg9g54A5757c3OBwmhA",
+    authDomain: "goeguessr-3a2d7.firebaseapp.com",
+    projectId: "goeguessr-3a2d7",
+    storageBucket: "goeguessr-3a2d7.firebasestorage.app",
+    messagingSenderId: "20823026806",
+    appId: "1:20823026806:web:1a020fe1b6980c8a130357",
+    measurementId: "G-KLN706V9BX"
 };
 
 // Inicializar Firebase

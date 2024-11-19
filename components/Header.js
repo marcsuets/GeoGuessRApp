@@ -4,11 +4,14 @@ import  colors from '../colors';
 
 export default function Header() {
   return (
-    <View style={styles.header}>
-        <View style={{flex:1}}/>
-        <Text style={styles.text}>GeoGuessR</Text>
+    <View style={{backgroundColor: colors.main}}>
+      <View style={styles.header}>
+      <View style={{flex:1}}/>
+      <Text style={styles.text}>GeoGuessR</Text>
     </View>
-  );
+  
+    </View>
+    );
 }
 
 const styles = StyleSheet.create({

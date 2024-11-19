@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import  colors from '../colors';
+import { useNavigation } from '@react-navigation/native';
 
-export default function ButtonBase({navigation, redirectTO}) {
+
+export default function ButtonBase({redirectTO}) {
+
+  const navigation = useNavigation();
 
   return (
     <View>
