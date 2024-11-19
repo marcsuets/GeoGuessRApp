@@ -15,7 +15,7 @@ export default function HomeScreen() {
                 <View style={{flex:2}}/>
                 <View style={styles.block}>
                     <Text style={styles.text}>Welcome{'\n'}to{'\n'}GeoGuessR </Text>
-                    <ButtonBase redirectTO={'Content'}/>                 
+                    <ButtonBase redirectTO={'GameScreen'} text={'START GAME'}/>                 
                 </View>
                 <View style={{flex:3}}/>
             </ImageBackground>

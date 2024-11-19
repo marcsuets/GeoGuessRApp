@@ -4,11 +4,11 @@ import Header from '../components/Header';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../utils/firebaseConfig'; // Asegúrate de importar tu configuración de Firebase
 import colors from '../colors';
-import ButtonBase from '../components/buttonBase';
-import MapView from 'react-native-maps';
+import {MapView} from 'react-native-maps';
+import FinishScreen from './FinishScreen';
 
 
-export default function HomeScreen({ navigation }) {
+export default function GameScreen({navigation}) {
     
     const [data, setData] = useState([]); // Estado para almacenar los datos de Firestore
 
@@ -34,14 +34,12 @@ export default function HomeScreen({ navigation }) {
         <View style={{ flex: 2, backgroundColor: colors.main }}>
           <Text style={styles.questionText}>HOLA</Text>
         </View>
-        <View style={{ flex: 7, backgroundColor: colors.secondary }}>
-			<MapView>
-				
-			</MapView>
+        <View style={{ flex: 7, backgroundColor: colors.main }}>
+						
         </View>
         <View style={{ flex: 3, backgroundColor: colors.main }}>
             <View style={{flex: 1}}>
-				<Pressable style={styles.buttonCheck} onPress={() => navigation.navigate(redirectTO)}>
+				<Pressable style={styles.buttonCheck} onPress={() => navigation.navigate(FinishScreen)}>
         			<Text style={styles.buttonText}>CHECK GUESS</Text>
       			</Pressable>
             </View>
@@ -85,11 +83,9 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.secondary,    
 		alignContent: 'center',
 		justifyContent: 'center',
-		borderRadius: 24,
-		
-	   
-		},
-		buttonText: {
+		borderRadius: 24,	   
+	},
+	buttonText: {
 		color: colors.main,
 		textAlign: 'center',
 		fontWeight: 'bold',

@@ -4,7 +4,7 @@ import  colors from '../colors';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function ButtonBase({text, redirectTO}) {
+export default function ButtonBaseFilled({text, redirectTO}) {
 
   const navigation = useNavigation();
 
@@ -23,16 +23,14 @@ const styles = StyleSheet.create({
     height: 60,
     marginLeft: '25%',
     marginRight: '25%',
-    backgroundColor: colors.main,    
+    backgroundColor: colors.secondary,    
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 24,
-    borderColor: colors.secondary,
-    borderWidth:5
    
   },
   Label: {
-    color: colors.secondary,
+    color: colors.main,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20

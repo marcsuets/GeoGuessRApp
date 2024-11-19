@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen'; // Exemple d'una altra pantalla
-import Content from './screens/Content';
+import HomeScreen from './screens/HomeScreen';
+import GameScreen from './screens/GameScreen';
+import FinishScreen from './screens/FinishScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +12,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false ,  animation: 'none'}} />
-        <Stack.Screen name="Content" component={Content} options={{ headerShown: false ,  animation: 'none'}}/>
+        <Stack.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false ,  animation: 'none'}}/>
+        <Stack.Screen name="FinishScreen" component={FinishScreen} options={{ headerShown: false ,  animation: 'none'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
