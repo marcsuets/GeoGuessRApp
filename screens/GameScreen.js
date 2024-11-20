@@ -76,11 +76,17 @@ export default function GameScreen({ navigation }) {
       // Calcular puntaje (por ejemplo, si la distancia es menor a 1 km, obtienes 10 puntos)
       let points = 0;
       if (calculatedDistance < 1) {
-        points = 10; // Puntuación máxima
+        points = 10; 
       } else if (calculatedDistance < 5) {
-        points = 5;  // Puntuación moderada
+        points = 7;  
+      }else if (calculatedDistance < 10) {
+        points = 5;  
+      }else if (calculatedDistance < 100) {
+        points = 3; 
+      }else if (calculatedDistance < 1000) {
+        points = 1;  
       } else {
-        points = 1;  // Puntuación mínima
+        points = 0;  
       }
   
       setScore(prevScore => prevScore + points); // Acumular puntos
