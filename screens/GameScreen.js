@@ -57,10 +57,10 @@ export default function GameScreen({ navigation }) {
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitude: 20.0,
+			longitude: 0.0,
+			latitudeDelta: 100,
+			longitudeDelta: 100,
           }}
           onPress={handleMapPress}
         >
