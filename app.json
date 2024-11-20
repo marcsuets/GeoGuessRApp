@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyFirstAppRN",
-    "slug": "MyFirstAppRN",
+    "name": "GeoGuessR",
+    "slug": "GeoGuessR",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,18 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ee683e44-3bcb-4038-8cef-ade6eac97428"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ee683e44-3bcb-4038-8cef-ade6eac97428"
     }
   }
 }

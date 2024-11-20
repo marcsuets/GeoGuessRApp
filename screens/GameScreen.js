@@ -11,6 +11,10 @@ export default function GameScreen({ navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0); // Índice de la pregunta actual
   const [selectedMarker, setSelectedMarker] = useState(null); // Marcador del usuario
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // Mostrar punto correcto
+  const [distance, setDistance] = useState(null);
+  const [mapInteractable, setMapInteractable] = useState(true); // Inicialmente interactuable
+  const [score, setScore] = useState(0); // Puntuación total
+
 
   // Obtener datos de Firestore
   const fetchData = async () => {
@@ -59,19 +63,46 @@ export default function GameScreen({ navigation }) {
     return R * c; // Distancia en km
   };
 
-  // Manejar la validación de la respuesta
   const handleCheckGuess = () => {
-    setShowCorrectAnswer(true); // Mostrar la respuesta correcta
+    if (selectedMarker && correctLocation) {
+      const calculatedDistance = calculateDistance(
+        selectedMarker.latitude,
+        selectedMarker.longitude,
+        correctLocation.latitude,
+        correctLocation.longitude
+      );
+      setDistance(calculatedDistance.toFixed(2)); // Mostrar la distancia
+  
+      // Calcular puntaje (por ejemplo, si la distancia es menor a 1 km, obtienes 10 puntos)
+      let points = 0;
+      if (calculatedDistance < 1) {
+        points = 10; // Puntuación máxima
+      } else if (calculatedDistance < 5) {
+        points = 5;  // Puntuación moderada
+      } else {
+        points = 1;  // Puntuación mínima
+      }
+  
+      setScore(prevScore => prevScore + points); // Acumular puntos
+      setShowCorrectAnswer(true);
+      setMapInteractable(false); // Deshabilitar la interacción con el mapa
+    }
+  };
+  
+  
+  const resetMap = () => {
+    setMapInteractable(true);
   };
 
   // Avanzar a la siguiente ronda
   const handleNextRound = () => {
     if (currentIndex + 1 >= data.length) {
-      navigation.navigate('FinishScreen');
+      navigation.navigate('FinishScreen', { score: score });
     } else {
       setSelectedMarker(null);
       setShowCorrectAnswer(false);
       setCurrentIndex((prevIndex) => prevIndex + 1);
+      resetMap();
     }
   };
 
@@ -80,12 +111,6 @@ export default function GameScreen({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.finalText}>Cargando...</Text>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate('FinishScreen')}
-        >
-          <Text style={styles.buttonText}>Volver al inicio</Text>
-        </Pressable>
       </View>
     );
   }
@@ -97,8 +122,12 @@ export default function GameScreen({ navigation }) {
     <View style={{ flex: 1, backgroundColor: colors.main }}>
       <Header />
       <View style={{ flex: 2, backgroundColor: colors.main }}>
-        <Text style={styles.questionText}>{currentQuestion?.question}</Text>
-        
+        <Text style={styles.questionText}>{currentQuestion?.question}</Text>  
+        {showCorrectAnswer && distance && (
+          <Text style={styles.finalText}>
+            Distance: {distance} km
+          </Text>
+        )}     
       </View>
       <View style={styles.mapContainer}>
         <MapView
@@ -109,10 +138,16 @@ export default function GameScreen({ navigation }) {
             latitudeDelta: 100,
             longitudeDelta: 100,
           }}
-          onPress={handleMapPress}
+          onPress={mapInteractable ? handleMapPress : null}
           customMapStyle={[
             {
               featureType: "poi",
+              stylers: [
+                { visibility: "off" }
+              ]
+            },
+            {
+              featureType: "transit.station",
               stylers: [
                 { visibility: "off" }
               ]
@@ -137,7 +172,7 @@ export default function GameScreen({ navigation }) {
                 selectedMarker,
                 correctLocation,
               ]}
-              strokeColor="red"
+              strokeColor={colors.main}
               strokeWidth={3}
             />
           )}
@@ -157,7 +192,7 @@ export default function GameScreen({ navigation }) {
         </View>
         <View style={styles.viewBottom}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.textScore}>Score: 0</Text>
+            <Text style={styles.textScore}>Score: {score}</Text>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.textRound}>Round {currentIndex+1}/5</Text>
@@ -177,8 +212,10 @@ const styles = StyleSheet.create({
   },
   finalText: {
     color: colors.secondary,
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10
   },
   questionText: {
     textAlign: 'center',
